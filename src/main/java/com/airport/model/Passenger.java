@@ -34,6 +34,9 @@ public class Passenger {
     @Column
     private String idCard;
 
+    @Column
+    private String ticketId;
+
     @ManyToMany(mappedBy = "passengers")
     private List<Flight> flights;
 
