@@ -19,5 +19,10 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
         <!-- Names the annotated entity class -->
+        <mapping class="com.airport.model.Airline"/>
+        <mapping class="com.airport.model.Airport"/>
+        <mapping class="com.airport.model.Flight"/>
+        <mapping class="com.airport.model.Passenger"/>
+        <mapping class="com.airport.model.Plane"/>
     </session-factory>
 </hibernate-configuration>
