@@ -1,7 +1,7 @@
 package com.airport.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,10 +37,10 @@ public class Flight {
     private String toCity;
 
     @Column
-    private LocalDateTime departureTime;
+    private Instant departureTime;
 
     @Column
-    private LocalDateTime arrivalTime;
+    private Instant arrivalTime;
 
     @Column
     private BigDecimal price;
