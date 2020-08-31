@@ -48,16 +48,16 @@ class SearchServiceTest {
         List<Flight> actualFlights = searchService.searchFlightsByDynamicCriteria(fromCity, toCity, departureTime, seatsNumber);
 
         //then
+        System.out.println();
         Assertions.assertThat(actualFlights)
             .extracting(
                 Flight::getFlightId,
                 Flight::getDepartureTime,
                 Flight::getArrivalTime,
-                Flight::getPrice,
                 Flight::getToCity)
             .containsExactlyInAnyOrder(
-                tuple(2L, Instant.parse("2020-08-19T17:30:00Z"), Instant.parse("2020-08-19T20:30:00Z"), 199.00, "Moskwa"),
-                tuple(4L, Instant.parse("2020-08-19T16:30:00Z"), Instant.parse("2020-08-19T18:30:00Z"), 399.00, "Moskwa")
+                tuple(2L, Instant.parse("2020-08-19T17:30:00Z"), Instant.parse("2020-08-19T20:30:00Z"), "Moskwa"),
+                tuple(4L, Instant.parse("2020-08-19T16:30:00Z"), Instant.parse("2020-08-19T18:30:00Z"), "Moskwa")
             );
     }
 
