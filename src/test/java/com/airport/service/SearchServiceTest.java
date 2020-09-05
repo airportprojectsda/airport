@@ -63,7 +63,7 @@ class SearchServiceTest {
     @Test
     void shouldFindOnePassenger() {
         //given
-        String idCard = "";
+        String idCard = "CDA745322";
         //when
         Passenger actualPassenger = searchService.searchPassengerByIdCard(idCard);
         //then
@@ -71,8 +71,8 @@ class SearchServiceTest {
             .extracting(
                 Passenger::getFirstName,
                 Passenger::getLastName)
-            .containsExactly(
-                tuple("", "")
+            .containsExactlyInAnyOrder(
+                "Sebastian", "Staszewski"
             );
     }
 

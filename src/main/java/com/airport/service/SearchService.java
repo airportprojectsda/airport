@@ -20,7 +20,7 @@ public class SearchService {
     private final Session session = SessionSingleton.getSessionSingleton().getSession();
 
     public Passenger searchPassengerByIdCard(String idCard) {
-        Query<Passenger> query = session.createQuery("from passenger p where p.idCard =: idCard", Passenger.class);
+        Query<Passenger> query = session.createQuery("from Passenger p where p.idCard =: idCard", Passenger.class);
         query.setParameter("idCard", idCard);
 
         return query.uniqueResult();
