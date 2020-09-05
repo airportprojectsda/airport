@@ -2,7 +2,7 @@ package com.airport.service;
 
 import com.airport.model.Flight;
 import com.airport.model.Passenger;
-import com.airport.model.Ticket;
+import com.airport.model.Reservation;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +21,7 @@ public class BookingService {
     private final static Pattern NAME_PASSENGER_PATTERN = Pattern.compile("[a-zA-Z]{1,}");
 
     private final SearchService searchService;
+    private final CreateService createService;
     private final Session session = SessionSingleton.getSessionSingleton().getSession();
     private final Scanner scanner = new Scanner(System.in);
 
@@ -36,18 +37,21 @@ public class BookingService {
 
         if (passenger == null) {
             passenger = createPassenger();
-            session.save(passenger);
+            createService.registerPassenger(passenger);
         }
 
         Optional<Flight> flight = chooseFlight(flights);
-        Ticket ticket = createTicket();
+        Reservation reservation = createTicket();
+        createService.addReservation(reservation);
 
         Passenger finalPassenger = passenger;
         flight.ifPresent(specifiedFlight -> {
-            finalPassenger.getTickets().add(ticket);
+            List<Reservation> reservations = finalPassenger.getReservations();
+            reservations.add(reservation);
+            finalPassenger.setReservations(reservations);
             specifiedFlight.getPassengers().add(finalPassenger);
             int numberOfVacancies = specifiedFlight.getPlane().getNumberOfVacancies();
-            specifiedFlight.getPlane().setNumberOfVacancies(numberOfVacancies + seatsNumber);
+            specifiedFlight.getPlane().setNumberOfVacancies(numberOfVacancies - seatsNumber);
             session.update(flight.get());
         });
         transaction.commit();
@@ -92,15 +96,15 @@ public class BookingService {
     }
 
     private boolean isTicketIdPresent(String ticketId) {
-        Ticket ticket = searchService.searchTicketByTicketId(ticketId);
+        Reservation reservation = searchService.searchTicketByTicketId(ticketId);
 
-        return ticket != null;
+        return reservation != null;
     }
 
-    private Ticket createTicket() {
+    private Reservation createTicket() {
         String ticketId = generateTicketId();
 
-        return Ticket.builder()
+        return Reservation.builder()
             .ticketId(ticketId)
             .build();
     }

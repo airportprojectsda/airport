@@ -24,6 +24,6 @@
         <mapping class="com.airport.model.Flight"/>
         <mapping class="com.airport.model.Passenger"/>
         <mapping class="com.airport.model.Plane"/>
-        <mapping class="com.airport.model.Ticket"/>
+        <mapping class="com.airport.model.Reservation"/>
     </session-factory>
 </hibernate-configuration>

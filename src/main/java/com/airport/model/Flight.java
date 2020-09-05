@@ -60,17 +60,15 @@ public class Flight {
 
     @Override
     public String toString() {
-        return "Flight[" +
-            "flightId=" + flightId +
-            ", fromCity='" + fromCity + '\'' +
-            ", toCity='" + toCity + '\'' +
-            ", departureTime=" + departureTime +
-            ", arrivalTime=" + arrivalTime +
-            ", price=" + price +
-            ", airport=" + airport +
-            ", plane=" + plane +
-            ", passengers=" + passengers +
-            ']';
+        return "\nFlightId: " + flightId + ":\n" +
+            " [fromCity: '" + fromCity + "'\n" +
+            " toCity: '" + toCity + "'\n" +
+            " departureTime: " + departureTime + "\n" +
+            " arrivalTime: " + arrivalTime + "\n" +
+            " price: " + price + "\n" +
+            " airport: " + airport + "\n" +
+            " plane: " + plane + "\n" +
+            " passengers: " + passengers + "]\n";
     }
 
 }

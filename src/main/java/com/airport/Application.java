@@ -1,6 +1,8 @@
 package com.airport;
 
 import com.airport.service.BookingService;
+import com.airport.service.CreateService;
+import com.airport.service.DeleteService;
 import com.airport.service.SearchService;
 import java.time.Instant;
 import org.hibernate.SessionFactory;
@@ -12,13 +14,13 @@ public class Application {
 
     public static void main(String[] args) {
 
-        StandardServiceRegistry standardServiceRegistry = new StandardServiceRegistryBuilder().configure().build();
-        SessionFactory sessionFactory = new MetadataSources(standardServiceRegistry)
-            .buildMetadata()
-            .buildSessionFactory();
-
-//        BookingService bookingService = new BookingService(new SearchService());
-//        bookingService.bookFlight("ACD123456", "Warszawa", "Moskwa", Instant.parse("2020-08-19T16:30:00.Z"), 2);
+        SearchService searchService = new SearchService();
+        BookingService bookingService = new BookingService(searchService, new CreateService());
+        System.out.println("Flight ticket booking:");
+        System.out.println("Result: " + bookingService.bookFlight("ABC123456", "Warszawa", "Moskwa", Instant.parse("2020-08-19T16:30:00.Z"), 2));
+        DeleteService deleteService = new DeleteService(searchService);
+        System.out.println("Flight ticket cancel:");
+        System.out.println("Result: " + deleteService.cancelFlight("cd1c4044-6ea5-4d0b-96f0-d958f635e4ce"));
 
     }
 
