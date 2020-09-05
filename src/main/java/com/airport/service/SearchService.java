@@ -1,6 +1,7 @@
 package com.airport.service;
 
 import com.airport.model.Flight;
+import com.airport.model.Passenger;
 import com.airport.model.Plane;
 import java.time.Instant;
 import java.util.List;
@@ -16,21 +17,25 @@ import org.hibernate.query.Query;
 @RequiredArgsConstructor
 public class SearchService {
 
-    private final Session session;
+    private final Session session = SessionSingleton.getSessionSingleton().getSession();
+
+    public Passenger searchPassengerByIdCard(String idCard) {
+        Query<Passenger> query = session.createQuery("from passenger p where p.idCard =: idCard", Passenger.class);
+        query.setParameter("idCard", idCard);
+
+        return query.uniqueResult();
+    }
 
     public List<Flight> searchFlightsByDynamicCriteria(String fromCity, String toCity, Instant departureTime, Integer seatsNumber) {
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Flight> flightCriteriaQuery = criteriaBuilder.createQuery(Flight.class);
 
         Root<Flight> fromFlight = flightCriteriaQuery.from(Flight.class);
-        Root<Plane> fromPlane = flightCriteriaQuery.from(Plane.class);
-
-        //Join<Plane, Flight> planeJoin = fromFlight.join("flight");
 
         flightCriteriaQuery.select(fromFlight).where(fromCityPredicate(fromCity, criteriaBuilder, fromFlight),
             toCityPredicate(toCity, criteriaBuilder, fromFlight),
             departureTimePredicate(departureTime, criteriaBuilder, fromFlight),
-            seatsNumberPredicate(seatsNumber, criteriaBuilder, fromPlane))
+            seatsNumberPredicate(seatsNumber, criteriaBuilder, flightCriteriaQuery))
             .distinct(true);
         Query<Flight> query = session.createQuery(flightCriteriaQuery);
 
@@ -58,7 +63,9 @@ public class SearchService {
         return criteriaBuilder.isTrue(criteriaBuilder.literal(true));
     }
 
-    private Predicate seatsNumberPredicate(Integer seatsNumber, CriteriaBuilder criteriaBuilder, Root<Plane> fromPlane) {
+    private Predicate seatsNumberPredicate(Integer seatsNumber, CriteriaBuilder criteriaBuilder, CriteriaQuery<Flight> flightCriteriaQuery ) {
+        Root<Plane> fromPlane = flightCriteriaQuery.from(Plane.class);
+
         if (Objects.nonNull(seatsNumber)) {
             return criteriaBuilder.greaterThanOrEqualTo(fromPlane.get("numberOfVacancies"), seatsNumber);
         }
