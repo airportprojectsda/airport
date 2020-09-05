@@ -40,11 +40,11 @@ public class BookingService {
         }
 
         Optional<Flight> flight = chooseFlight(flights);
+        Ticket ticket = createTicket();
 
         Passenger finalPassenger = passenger;
         flight.ifPresent(specifiedFlight -> {
-            String ticketId = generateTicketId();
-            //finalPassenger.getTickets().add()setTicketId(ticketId);
+            finalPassenger.getTickets().add(ticket);
             specifiedFlight.getPassengers().add(finalPassenger);
             int numberOfVacancies = specifiedFlight.getPlane().getNumberOfVacancies();
             specifiedFlight.getPlane().setNumberOfVacancies(numberOfVacancies + seatsNumber);
@@ -95,6 +95,14 @@ public class BookingService {
         Ticket ticket = searchService.searchTicketByTicketId(ticketId);
 
         return ticket != null;
+    }
+
+    private Ticket createTicket() {
+        String ticketId = generateTicketId();
+
+        return Ticket.builder()
+            .ticketId(ticketId)
+            .build();
     }
 
     private Optional<Flight> chooseFlight(List<Flight> flights) {

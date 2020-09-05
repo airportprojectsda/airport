@@ -71,7 +71,7 @@ public class SearchService {
         return criteriaBuilder.isTrue(criteriaBuilder.literal(true));
     }
 
-    private Predicate seatsNumberPredicate(Integer seatsNumber, CriteriaBuilder criteriaBuilder, CriteriaQuery<Flight> flightCriteriaQuery ) {
+    private Predicate seatsNumberPredicate(Integer seatsNumber, CriteriaBuilder criteriaBuilder, CriteriaQuery<Flight> flightCriteriaQuery) {
         Root<Plane> fromPlane = flightCriteriaQuery.from(Plane.class);
 
         if (Objects.nonNull(seatsNumber)) {
