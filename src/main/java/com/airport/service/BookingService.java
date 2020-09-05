@@ -2,6 +2,7 @@ package com.airport.service;
 
 import com.airport.model.Flight;
 import com.airport.model.Passenger;
+import com.airport.model.Ticket;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -43,7 +44,7 @@ public class BookingService {
         Passenger finalPassenger = passenger;
         flight.ifPresent(specifiedFlight -> {
             String ticketId = generateTicketId();
-            finalPassenger.setTicketId(ticketId);
+            //finalPassenger.getTickets().add()setTicketId(ticketId);
             specifiedFlight.getPassengers().add(finalPassenger);
             int numberOfVacancies = specifiedFlight.getPlane().getNumberOfVacancies();
             specifiedFlight.getPlane().setNumberOfVacancies(numberOfVacancies + seatsNumber);
@@ -91,9 +92,9 @@ public class BookingService {
     }
 
     private boolean isTicketIdPresent(String ticketId) {
-        Passenger passenger = searchService.searchPassengerByTicketId(ticketId);
+        Ticket ticket = searchService.searchTicketByTicketId(ticketId);
 
-        return passenger != null;
+        return ticket != null;
     }
 
     private Optional<Flight> chooseFlight(List<Flight> flights) {

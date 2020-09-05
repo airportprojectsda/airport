@@ -3,6 +3,7 @@ package com.airport.service;
 import com.airport.model.Flight;
 import com.airport.model.Passenger;
 import com.airport.model.Plane;
+import com.airport.model.Ticket;
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
@@ -26,8 +27,8 @@ public class SearchService {
         return query.uniqueResult();
     }
 
-    public Passenger searchPassengerByTicketId(String ticketId) {
-        Query<Passenger> query = session.createQuery("from Passenger p where p.ticketId =: ticketId", Passenger.class);
+    public Ticket searchTicketByTicketId(String ticketId) {
+        Query<Ticket> query = session.createQuery("from Ticket t where t.ticketId =: ticketId", Ticket.class);
         query.setParameter("ticketId", ticketId);
 
         return query.uniqueResult();

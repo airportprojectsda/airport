@@ -12,8 +12,13 @@ public class Application {
 
     public static void main(String[] args) {
 
-        BookingService bookingService = new BookingService(new SearchService());
-        bookingService.bookFlight("ACD123456", "Warszawa", "Moskwa", Instant.parse("2020-08-19T16:30:00.Z"), 2);
+        StandardServiceRegistry standardServiceRegistry = new StandardServiceRegistryBuilder().configure().build();
+        SessionFactory sessionFactory = new MetadataSources(standardServiceRegistry)
+            .buildMetadata()
+            .buildSessionFactory();
+
+//        BookingService bookingService = new BookingService(new SearchService());
+//        bookingService.bookFlight("ACD123456", "Warszawa", "Moskwa", Instant.parse("2020-08-19T16:30:00.Z"), 2);
 
     }
 

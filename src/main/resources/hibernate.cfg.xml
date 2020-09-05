@@ -17,12 +17,13 @@
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
         <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">create</property>
         <!-- Names the annotated entity class -->
         <mapping class="com.airport.model.Airline"/>
         <mapping class="com.airport.model.Airport"/>
         <mapping class="com.airport.model.Flight"/>
         <mapping class="com.airport.model.Passenger"/>
         <mapping class="com.airport.model.Plane"/>
+        <mapping class="com.airport.model.Ticket"/>
     </session-factory>
 </hibernate-configuration>
