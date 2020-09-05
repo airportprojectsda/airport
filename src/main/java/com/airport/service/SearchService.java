@@ -26,7 +26,14 @@ public class SearchService {
         return query.uniqueResult();
     }
 
-    public List<Flight> searchFlightsByDynamicCriteria(String fromCity, String toCity, Instant departureTime, Integer seatsNumber) {
+    public Passenger searchPassengerByTicketId(String ticketId) {
+        Query<Passenger> query = session.createQuery("from Passenger p where p.ticketId =: ticketId", Passenger.class);
+        query.setParameter("ticketId", ticketId);
+
+        return query.uniqueResult();
+    }
+
+    public List<Flight> searchFlightsByDynamicCriteria(String fromCity, String toCity, Instant departureTime, int seatsNumber) {
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Flight> flightCriteriaQuery = criteriaBuilder.createQuery(Flight.class);
 

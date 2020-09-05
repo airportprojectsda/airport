@@ -58,4 +58,19 @@ public class Flight {
         inverseJoinColumns = @JoinColumn(name = "passenger_id"))
     private List<Passenger> passengers;
 
+    @Override
+    public String toString() {
+        return "Flight[" +
+            "flightId=" + flightId +
+            ", fromCity='" + fromCity + '\'' +
+            ", toCity='" + toCity + '\'' +
+            ", departureTime=" + departureTime +
+            ", arrivalTime=" + arrivalTime +
+            ", price=" + price +
+            ", airport=" + airport +
+            ", plane=" + plane +
+            ", passengers=" + passengers +
+            ']';
+    }
+
 }

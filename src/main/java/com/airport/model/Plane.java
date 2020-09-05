@@ -30,10 +30,10 @@ public class Plane {
     private String model;
 
     @Column
-    private Short totalNumberOfSeats;
+    private Integer totalNumberOfSeats;
 
     @Column
-    private Short numberOfVacancies;
+    private Integer numberOfVacancies;
 
     @OneToMany(mappedBy = "plane")
     private List<Flight> flights;
