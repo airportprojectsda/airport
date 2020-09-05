@@ -11,10 +11,10 @@ public class DeleteService {
     private final Session session = SessionSingleton.getSessionSingleton().getSession();
     private final SearchService searchService;
 
-    public boolean cancelFlight(String ticketId) {
+    public boolean deleteReservation(String ticketId) {
         Transaction transaction = session.beginTransaction();
 
-        Reservation reservation = searchService.searchTicketByTicketId(ticketId);
+        Reservation reservation = searchService.searchReservationByTicketId(ticketId);
         if (reservation == null) {
             return false;
         }

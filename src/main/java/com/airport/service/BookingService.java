@@ -4,6 +4,7 @@ import com.airport.model.Flight;
 import com.airport.model.Passenger;
 import com.airport.model.Reservation;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -47,6 +48,9 @@ public class BookingService {
         Passenger finalPassenger = passenger;
         flight.ifPresent(specifiedFlight -> {
             List<Reservation> reservations = finalPassenger.getReservations();
+            reservations = reservations == null
+                ? new ArrayList<>()
+                : reservations;
             reservations.add(reservation);
             finalPassenger.setReservations(reservations);
             specifiedFlight.getPassengers().add(finalPassenger);
@@ -96,7 +100,7 @@ public class BookingService {
     }
 
     private boolean isTicketIdPresent(String ticketId) {
-        Reservation reservation = searchService.searchTicketByTicketId(ticketId);
+        Reservation reservation = searchService.searchReservationByTicketId(ticketId);
 
         return reservation != null;
     }

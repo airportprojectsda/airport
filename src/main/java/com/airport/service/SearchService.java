@@ -27,11 +27,18 @@ public class SearchService {
         return query.uniqueResult();
     }
 
-    public Reservation searchTicketByTicketId(String ticketId) {
-        Query<Reservation> query = session.createQuery("from Reservation t where t.ticketId =: ticketId", Reservation.class);
+    public Reservation searchReservationByTicketId(String ticketId) {
+        Query<Reservation> query = session.createQuery("from Reservation r where r.ticketId =: ticketId", Reservation.class);
         query.setParameter("ticketId", ticketId);
 
         return query.uniqueResult();
+    }
+
+    public List<Reservation> searchReservationByCardId(String idCard) {
+        Query<Reservation> query = session.createQuery("from Reservation r where r.passenger.idCard =: idCard", Reservation.class);
+        query.setParameter("idCard", idCard);
+
+        return query.getResultList();
     }
 
     public List<Flight> searchFlightsByDynamicCriteria(String fromCity, String toCity, Instant departureTime, int seatsNumber) {
