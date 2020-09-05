@@ -3,15 +3,10 @@ package com.airport.service;
 import static org.assertj.core.groups.Tuple.tuple;
 
 import com.airport.model.Flight;
+import com.airport.model.Passenger;
 import java.time.Instant;
 import java.util.List;
 import org.assertj.core.api.Assertions;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -19,21 +14,10 @@ import org.junit.jupiter.api.Test;
 class SearchServiceTest {
 
     private static SearchService searchService;
-    private static Session session;
 
     @BeforeAll
     static void init() {
-        StandardServiceRegistry standardServiceRegistry = new StandardServiceRegistryBuilder().configure().build();
-        SessionFactory sessionFactory = new MetadataSources(standardServiceRegistry)
-            .buildMetadata()
-            .buildSessionFactory();
-        session = sessionFactory.openSession();
-        searchService = new SearchService(session);
-    }
-
-    @AfterAll
-    static void end() {
-        session.close();
+        searchService = new SearchService();
     }
 
     @Test
@@ -64,9 +48,9 @@ class SearchServiceTest {
     @Test
     void shouldNotFindFlightsWhenCriteriaOutOfRange() {
         //given
-        String fromCity = null;
-        String toCity = null;
-        Instant departureTime = null;
+        String fromCity = "Warszawa";
+        String toCity = "Moskwa";
+        Instant departureTime = Instant.parse("2020-08-19T16:30:00Z");
         Integer seatsNumber = 4000;
 
         //when
@@ -74,6 +58,32 @@ class SearchServiceTest {
 
         //then
         Assertions.assertThat(actualFlights).hasSize(0);
+    }
+
+    @Test
+    void shouldFindOnePassenger() {
+        //given
+        String idCard = "";
+        //when
+        Passenger actualPassenger = searchService.searchPassengerByIdCard(idCard);
+        //then
+        Assertions.assertThat(actualPassenger)
+            .extracting(
+                Passenger::getFirstName,
+                Passenger::getLastName)
+            .containsExactly(
+                tuple("", "")
+            );
+    }
+
+    @Test
+    void shouldNotFindAnyPassenger() {
+        //given
+        String idCard = "2244342121";
+        //when
+        Passenger actualPassenger = searchService.searchPassengerByIdCard(idCard);
+        //then
+        Assertions.assertThat(actualPassenger).isNull();
     }
 
 }
