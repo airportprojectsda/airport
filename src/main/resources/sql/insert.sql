@@ -16,6 +16,7 @@ values ('2020-08-19 09:45', '2020-08-19 12:45', 'Moskwa', 299, 'Berlin', 3, 3),
 ('2020-08-19 12:45', '2020-08-19 15:45', 'Madryt', 199, 'Berlin', 4, 4),
 ('2020-08-19 16:00', '2020-08-19 18:45', 'Mediolan', 499, 'Moskwa', 5, 5);
 
-insert into passenger (firstName, idCard, lastName, ticketId) values ("Piotr", 'CCP215930','Szurgot', null);
-insert into passenger (firstName, idCard, lastName, ticketId) values ("Sebastian", 'CDA745322','Staszewski', null);
-insert into passenger (firstName, idCard, lastName, ticketId) values ("Olaf", 'KLD156321','Piwko', null);
+insert into passenger (firstName, idCard, lastName, ticketId)
+values ("Piotr", 'CCP215930','Szurgot', null),
+("Sebastian", 'CDA745322','Staszewski', null),
+("Olaf", 'KLD156321','Piwko', null);
