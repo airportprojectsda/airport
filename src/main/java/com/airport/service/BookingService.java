@@ -46,7 +46,7 @@ public class BookingService {
         Passenger finalPassenger = passenger;
         flight.ifPresent(specifiedFlight -> {
             for (int counter = 0; counter < seatsNumber; counter++) {
-                Reservation reservation = createTicket(flight.get());
+                Reservation reservation = createTicket(flight.get(), finalPassenger);
                 createService.addReservation(reservation);
                 List<Reservation> reservations = finalPassenger.getReservations();
                 reservations = reservations == null
@@ -108,12 +108,13 @@ public class BookingService {
         return reservation != null;
     }
 
-    private Reservation createTicket(Flight flight) {
+    private Reservation createTicket(Flight flight, Passenger passenger) {
         String ticketId = generateTicketId();
 
         return Reservation.builder()
             .ticketId(ticketId)
             .flight(flight)
+            .passenger(passenger)
             .build();
     }
 

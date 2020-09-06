@@ -13,7 +13,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -60,7 +59,7 @@ public class Flight {
         inverseJoinColumns = @JoinColumn(name = "passenger_id"))
     private List<Passenger> passengers;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "flight_id")
     List<Reservation> reservations;
 
@@ -73,7 +72,7 @@ public class Flight {
             " Arrival Time: " + arrivalTime + "\n" +
             " Price: " + price + "\n" +
             " Airport: " + airport + "\n" +
-            " Plane: " + plane + "]\n";
+            " Plane: " + plane + "]";
     }
 
 }

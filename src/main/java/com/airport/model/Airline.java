@@ -28,12 +28,12 @@ public class Airline {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "airline")
+    @OneToMany(mappedBy = "airline", orphanRemoval = true)
     private List<Plane> planes;
 
     @Override
     public String toString() {
-        return "[Name: '" + name + "']\n";
+        return "[Name: '" + name + "']";
     }
 
 }

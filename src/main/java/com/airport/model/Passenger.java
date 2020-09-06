@@ -36,7 +36,7 @@ public class Passenger {
     @Column
     private String idCard;
 
-    @OneToMany//(mappedBy = "passenger")
+    @OneToMany(orphanRemoval = true)//(mappedBy = "passenger")
     @JoinColumn(name = "passenger_id")
     private List<Reservation> reservations;
 
@@ -48,7 +48,7 @@ public class Passenger {
         return "Passenger:\n" +
             "[First Name: '" + firstName + "'\n" +
             "Last Name: '" + lastName + "'\n" +
-            "Id Card: '" + idCard + "']\n";
+            "Id Card: '" + idCard + "']";
     }
 
 }

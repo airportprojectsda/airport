@@ -35,7 +35,7 @@ public class Plane {
     @Column
     private Integer numberOfVacancies;
 
-    @OneToMany(mappedBy = "plane")
+    @OneToMany(mappedBy = "plane", orphanRemoval = true)
     private List<Flight> flights;
 
     @ManyToOne
@@ -46,7 +46,7 @@ public class Plane {
         return "Plane:\n" +
             "[Model: '" + model + "'\n" +
             "Number Of Vacancies: " + numberOfVacancies + "\n" +
-            "Airline: " + airline + "]\n";
+            "Airline: " + airline + "]";
     }
 
 }

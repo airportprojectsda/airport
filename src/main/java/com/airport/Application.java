@@ -11,10 +11,6 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class Application {
 
@@ -74,10 +70,10 @@ public class Application {
                     String toCity = getToCity(scanner);
                     Instant departureTime = getDepartureTime(scanner);
                     int seatNumber = getSeatsNumber(scanner);
-                    System.out.println("RESULT: ");
                     result = bookingService.bookFlight(idCard, fromCity, toCity, departureTime, seatNumber)
                         ? "YOU HAVE BOOK FLIGHT"
                         : "IS NOT POSSIBLE TO BOOK FLIGHT";
+                    System.out.println("RESULT: ");
                     System.out.println(result);
                     break;
                 case "3":

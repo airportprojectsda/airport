@@ -40,7 +40,7 @@ public class Reservation {
     public String toString() {
         return "Reservation:\n" +
             "[Ticket Id: '" + ticketId + "'\n" +
-            "Passenger: " + passenger  + "]\n";
+            "Passenger: " + passenger  + "]";
     }
 
 }

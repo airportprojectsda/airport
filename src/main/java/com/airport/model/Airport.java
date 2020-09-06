@@ -31,13 +31,13 @@ public class Airport {
     @Column
     private String cityName;
 
-    @OneToMany(mappedBy = "airport")
+    @OneToMany(mappedBy = "airport", orphanRemoval = true)
     private List<Flight> flights;
 
     @Override
     public String toString() {
         return "[Name: '" + name + "'\n" +
-            "City Name: '" + cityName + "']\n";
+            "City Name: '" + cityName + "']";
     }
 
 }
