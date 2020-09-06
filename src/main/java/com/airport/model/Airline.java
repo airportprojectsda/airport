@@ -31,4 +31,9 @@ public class Airline {
     @OneToMany(mappedBy = "airline")
     private List<Plane> planes;
 
+    @Override
+    public String toString() {
+        return "[Name: '" + name + "']\n";
+    }
+
 }

@@ -34,4 +34,10 @@ public class Airport {
     @OneToMany(mappedBy = "airport")
     private List<Flight> flights;
 
+    @Override
+    public String toString() {
+        return "[Name: '" + name + "'\n" +
+            "City Name: '" + cityName + "']\n";
+    }
+
 }

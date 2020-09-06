@@ -45,6 +45,10 @@ public class Passenger {
 
     @Override
     public String toString() {
-        return "idCard='" + idCard + "'";
+        return "Passenger:\n" +
+            "[First Name: '" + firstName + "'\n" +
+            "Last Name: '" + lastName + "'\n" +
+            "Id Card: '" + idCard + "']\n";
     }
+
 }

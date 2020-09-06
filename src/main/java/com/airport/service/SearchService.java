@@ -7,6 +7,7 @@ import com.airport.model.Reservation;
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -32,6 +33,30 @@ public class SearchService {
         query.setParameter("ticketId", ticketId);
 
         return query.uniqueResult();
+    }
+
+    public List<Flight> searchFlightByCardIdAndFlightCriteria(String idCard, String fromCity, String toCity, Instant departureTime, int seatsNumber) {
+        List<Flight> flights = searchFlightsByDynamicCriteria(fromCity, toCity, departureTime, seatsNumber);
+
+        Passenger passenger = searchPassengerByIdCard(idCard);
+
+        return flights.stream()
+            .filter(flight -> flight.getPassengers().contains(passenger))
+            .collect(Collectors.toList());
+    }
+
+    public List<Reservation> searchReservationByCardIdAndFlightCriteria(String idCard, String fromCity, String toCity, Instant departureTime, int seatsNumber) {
+        List<Flight> flights = searchFlightByCardIdAndFlightCriteria(idCard, fromCity, toCity, departureTime, seatsNumber);
+
+        return flights.stream()
+            .flatMap(flight -> flight.getPassengers().stream()
+                .flatMap(passenger -> passenger.getReservations().stream()))
+            .filter(reservation -> reservation
+                .getPassenger()
+                .getIdCard()
+                .equals(idCard))
+            .distinct()
+            .collect(Collectors.toList());
     }
 
     public List<Reservation> searchReservationByCardId(String idCard) {

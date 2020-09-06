@@ -32,4 +32,15 @@ public class Reservation {
     @JoinColumn(name = "passenger_id")
     private Passenger passenger;
 
+    @ManyToOne
+    @JoinColumn(name = "flight_id")
+    private Flight flight;
+
+    @Override
+    public String toString() {
+        return "Reservation:\n" +
+            "[Ticket Id: '" + ticketId + "'\n" +
+            "Passenger: " + passenger  + "]\n";
+    }
+
 }

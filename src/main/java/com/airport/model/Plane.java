@@ -41,4 +41,12 @@ public class Plane {
     @ManyToOne
     private Airline airline;
 
+    @Override
+    public String toString() {
+        return "Plane:\n" +
+            "[Model: '" + model + "'\n" +
+            "Number Of Vacancies: " + numberOfVacancies + "\n" +
+            "Airline: " + airline + "]\n";
+    }
+
 }

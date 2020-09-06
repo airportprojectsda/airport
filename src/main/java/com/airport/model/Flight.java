@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -58,17 +60,20 @@ public class Flight {
         inverseJoinColumns = @JoinColumn(name = "passenger_id"))
     private List<Passenger> passengers;
 
+    @OneToMany
+    @JoinColumn(name = "flight_id")
+    List<Reservation> reservations;
+
     @Override
     public String toString() {
-        return "\nFlightId: " + flightId + ":\n" +
-            " [fromCity: '" + fromCity + "'\n" +
-            " toCity: '" + toCity + "'\n" +
-            " departureTime: " + departureTime + "\n" +
-            " arrivalTime: " + arrivalTime + "\n" +
-            " price: " + price + "\n" +
-            " airport: " + airport + "\n" +
-            " plane: " + plane + "\n" +
-            " passengers: " + passengers + "]\n";
+        return "\nFlight Id: " + flightId + ":\n" +
+            " [From City: '" + fromCity + "'\n" +
+            " To City: '" + toCity + "'\n" +
+            " Departure Time: " + departureTime + "\n" +
+            " Arrival Time: " + arrivalTime + "\n" +
+            " Price: " + price + "\n" +
+            " Airport: " + airport + "\n" +
+            " Plane: " + plane + "]\n";
     }
 
 }

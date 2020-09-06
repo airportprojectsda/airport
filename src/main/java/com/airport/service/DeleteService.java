@@ -19,6 +19,8 @@ public class DeleteService {
             return false;
         }
         session.delete(reservation);
+        int presentNumberOfVacancies = reservation.getFlight().getPlane().getNumberOfVacancies();
+        reservation.getFlight().getPlane().setNumberOfVacancies(presentNumberOfVacancies + 1);
 
         transaction.commit();
 
